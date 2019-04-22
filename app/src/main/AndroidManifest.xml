@@ -3,22 +3,34 @@
           package="com.rahul.messmanagement">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
+            android:name=".MessApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:name=".MessApplication"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"
-                  android:windowSoftInputMode="adjustResize">
+
+        <activity
+                android:name=".ui.HomeActivity"
+                android:label="@string/title_activity_home">
+        </activity>
+
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
 
+
+
+        <activity
+                android:name=".ui.registration.MainActivity"
+                android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

@@ -1,16 +1,16 @@
-package com.rahul.messmanagement.ui.fragments
+package com.rahul.messmanagement.ui.registration.fragments
 
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.rahul.messmanagement.MessApplication
@@ -18,19 +18,20 @@ import com.rahul.messmanagement.MessApplication
 import com.rahul.messmanagement.R
 import com.rahul.messmanagement.data.DataRepository
 import com.rahul.messmanagement.data.network.NetworkResult
-import com.rahul.messmanagement.ui.MainActivity
-import com.rahul.messmanagement.ui.listeners.LoginInterfaceListener
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.rahul.messmanagement.ui.registration.MainActivity
+import com.rahul.messmanagement.ui.registration.listeners.LoginInterfaceListener
+import com.rahul.messmanagement.data.network.networkmodels.User
+import com.rahul.messmanagement.ui.HomeActivity
+import kotlinx.android.synthetic.main.fragment_welcome.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+class WelcomeFragment : Fragment(), CoroutineScope {
 
-class LoginFragment : Fragment(), CoroutineScope {
-
-    private val TAG = LoginFragment::class.java.simpleName
+    private val TAG = WelcomeFragment::class.java.simpleName
     private lateinit var dataRepository: DataRepository
     private lateinit var loginInterfaceListener: LoginInterfaceListener
 
@@ -44,7 +45,7 @@ class LoginFragment : Fragment(), CoroutineScope {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_welcome, container, false)
     }
 
     override fun onAttach(context: Context) {
@@ -53,65 +54,25 @@ class LoginFragment : Fragment(), CoroutineScope {
         loginInterfaceListener = activity as LoginInterfaceListener
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rollNoTextView.text = MainActivity.rollNo
-        passwordEditText.requestFocus()
-
-        activateButton()
-    }
-    private fun activateButton() {
-        continueButton.setOnClickListener {
-            deactivateButton()
-            hideButton()
-            tryLogin()
-        }
+        getDetails()
     }
 
-    private fun deactivateButton() {
-        continueButton.setOnClickListener {
-
-        }
-    }
-
-    private fun hideButton() {
-        val cx = continueButton.width / 2
-        val cy = continueButton.height / 2
-
-        val finalRadius = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()
-        val animator = ViewAnimationUtils.createCircularReveal(continueButton, cx, cy, finalRadius, 0f)
-        animator.duration = 250L
-
-        animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
-                super.onAnimationEnd(animation)
-                continueButton.visibility = View.INVISIBLE
-                continueProgressBar.visibility = View.VISIBLE
-            }
-        })
-
-        animator.start()
-    }
-
-    private fun tryLogin() {
-        val password = passwordEditText.text.toString()
+    fun getDetails() {
         launch {
-            val result = dataRepository.login(MainActivity.rollNo, password)
+            val result = dataRepository.loginGet(MainActivity.rollNo)
+
             when(result) {
                 is NetworkResult.Ok -> {
-                    Log.d(TAG, result.value.status.toString())
-
-                    if(result.value.status) {
-                        Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
-                    } else {
-                        activity!!.runOnUiThread{
-                            passwordInputLayout.error = "Incorrect Password"
-                        }
-
+                    Log.d(TAG, result.value.name)
+                    activity?.runOnUiThread {
+                        progressBar2.visibility = View.INVISIBLE
                         showButton()
+                        saveDetails(result.value)
                     }
+
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, result.exception.toString())
@@ -125,25 +86,47 @@ class LoginFragment : Fragment(), CoroutineScope {
         }
     }
 
+    private fun saveDetails(user: User) {
+        val sharedPref = activity!!.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putBoolean(getString(R.string.pref_loggedIn), true)
+            putString(getString(R.string.pref_rollNo), user.rollNo)
+            putString(getString(R.string.pref_password), user.password)
+            putString(getString(R.string.pref_email), user.email)
+            putString(getString(R.string.pref_name), user.name)
+            putString(getString(R.string.pref_mess), user.mess)
+            putString(getString(R.string.pref_holderName), user.accountHolderName)
+            putString(getString(R.string.pref_accountNo), user.accountNo)
+            putString(getString(R.string.pref_ifscCode), user.IFSCCode)
+            putString(getString(R.string.pref_bankBranch), user.bankBranch)
+            putString(getString(R.string.pref_bankName), user.bankName)
+            commit()
+        }
+
+        startActivity(Intent(activity, HomeActivity::class.java))
+        activity?.finish()
+    }
+
     private fun showButton() {
         activity!!.runOnUiThread {
-            val cx = continueButton.width / 2
-            val cy = continueButton.height / 2
+            val cx = button2.width / 2
+            val cy = button2.height / 2
 
             val finalRadius = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()
-            val animator = ViewAnimationUtils.createCircularReveal(continueButton, cx, cy, 0f, finalRadius)
+            val animator = ViewAnimationUtils.createCircularReveal(button2, cx, cy, 0f, finalRadius)
             animator.duration = 250L
 
             animator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationStart(animation: Animator?) {
                     super.onAnimationEnd(animation)
-                    continueButton.visibility = View.VISIBLE
-                    continueProgressBar.visibility = View.GONE
+                    button2.visibility = View.VISIBLE
+                    progressBar2.visibility = View.INVISIBLE
                 }
 
                 override fun onAnimationEnd(animation: Animator?) {
                     super.onAnimationEnd(animation)
-                    activateButton()
+
                 }
             })
 
@@ -151,4 +134,5 @@ class LoginFragment : Fragment(), CoroutineScope {
         }
 
     }
+
 }

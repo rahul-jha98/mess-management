@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                       xmlns:tools="http://schemas.android.com/tools"
+                                       android:layout_width="match_parent"
+                                       android:id="@+id/homeFragmentView"
+                                       android:layout_height="match_parent" android:animateLayoutChanges="true"
+                                       tools:context=".ui.fragments.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       android:animateLayoutChanges="true"
+    >
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/eventImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                android:translationZ="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/eventImage" android:id="@+id/profileCardView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        android:id="@+id/userNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="Pravin Rathore" app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="60dp" android:textColor="@android:color/black"/>
+
+                <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/statusProgressBar"
+                        android:layout_marginStart="64dp"
+                        app:layout_constraintTop_toBottomOf="@+id/userNameTextView" android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/attendenceCardView"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileCardView"
+                android:layout_marginTop="32dp"
+        >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/hadFoodTextView" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent" tools:text="Dis you have breakfast today"
+                        android:textSize="18sp" android:textColor="@color/jetBlack" android:layout_marginStart="8dp"/>
+                <Button
+                        android:text="Yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:icon="@drawable/ic_food"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/hadFoodButton"
+                        app:layout_constraintTop_toBottomOf="@+id/hadFoodTextView"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"/>
+                <Button
+                        android:text="No"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:icon="@drawable/ic_food_off"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/didNotHaveFoodButton"
+                        app:layout_constraintTop_toTopOf="@+id/hadFoodButton"
+                        app:layout_constraintStart_toEndOf="@+id/hadFoodButton"
+                        android:layout_marginStart="16dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+                android:text="My Mess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent" android:textSize="24sp" android:textColor="@color/jetBlack"/>
+
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                android:alpha="0"
+                app:cardCornerRadius="5dp"
+                android:stateListAnimator="@animator/card_elevator"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileCardView"
+                android:layout_marginTop="32dp" android:id="@+id/ratingCardView"
+        >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/howWasFoodTextView" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent" tools:text="Dis you have breakfast today"
+                        android:textSize="18sp" android:textColor="@color/jetBlack" android:layout_marginStart="8dp"/>
+
+                <Button
+                        android:minWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cornerRadius="24dp"
+                        android:tag="1"
+                        app:iconTint="@color/very_bad_button_color"
+                        app:rippleColor="@color/redBadRipple"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:icon="@drawable/ic_twotone_sentiment_very_dissatisfied"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/veryBadButton"
+                        app:layout_constraintTop_toBottomOf="@+id/howWasFoodTextView"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                        app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/badButton"
+                        android:layout_marginEnd="8dp" android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toTopOf="@+id/complaintEditText"/>
+
+                <Button
+                        android:minWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconTint="@color/bad_button_color"
+                        app:rippleColor="@color/orangeBadRipple"
+                        android:tag="2"
+                        app:cornerRadius="24dp"
+                        app:icon="@drawable/ic_twotone_sentiment_dissatisfied"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/badButton"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/veryBadButton" android:layout_marginStart="8dp"
+                        app:layout_constraintTop_toTopOf="@+id/veryBadButton" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/normalButton" android:layout_marginEnd="8dp"/>
+
+                <Button
+                        android:minWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cornerRadius="24dp"
+                        android:tag="3"
+                        app:iconTint="@color/normal_button_color"
+                        app:rippleColor="@color/yellowNormalRipple"
+                        app:icon="@drawable/ic_twotone_sentiment_satisfied"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/normalButton"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/badButton" android:layout_marginStart="8dp"
+                        app:layout_constraintTop_toTopOf="@+id/veryBadButton" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/goodButton" android:layout_marginEnd="8dp"/>
+
+                <Button
+                        android:minWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cornerRadius="24dp"
+                        android:tag="4"
+                        app:iconTint="@color/good_button_color"
+                        app:rippleColor="@color/greenOkRipple"
+                        app:icon="@drawable/ic_twotone_sentiment_satisfied_good"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/goodButton"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/normalButton" android:layout_marginStart="8dp"
+                        app:layout_constraintTop_toTopOf="@+id/veryBadButton" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/veryGoodButton" android:layout_marginEnd="8dp"/>
+
+                <Button
+                        android:minWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cornerRadius="24dp"
+                        android:tag="5"
+                        app:iconTint="@color/very_good_button_color"
+                        app:rippleColor="@color/greenGoodRipple"
+                        app:icon="@drawable/ic_twotone_sentiment_very_satisfied"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:id="@+id/veryGoodButton"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/goodButton" android:layout_marginStart="8dp"
+                        app:layout_constraintTop_toTopOf="@+id/veryBadButton" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:gravity="start|top"
+                        android:ems="10"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" android:id="@+id/complaintEditText"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp" android:hint="Complaint (Optional)" android:minLines="4"
+                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/submitButton"
+                        android:visibility="gone"/>
+                <Button
+                        android:text="Submit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/submitButton" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                        android:visibility="gone"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/ratingCardView"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:src="@drawable/ic_undraw_vacation"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp" android:id="@+id/imageView7"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="16dp" app:layout_constraintEnd_toStartOf="@+id/guideline"
+                        android:layout_marginStart="16dp"/>
+                <androidx.constraintlayout.widget.Guideline
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/guideline" app:layout_constraintGuide_percent=".4"/>
+                <TextView
+                        android:text="Travelling for more than 4 day.  Apply for rebate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView8" app:layout_constraintStart_toStartOf="@+id/guideline"
+                        android:layout_marginStart="16dp" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp" android:textSize="18sp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

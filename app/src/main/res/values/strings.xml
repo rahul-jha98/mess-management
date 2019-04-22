@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">Mess Management</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_food">Menu</string>
+    <string name="title_user">User Details</string>
+
+
+    <string name="pref_rollNo">rollNo</string>
+    <string name="pref_password">password</string>
+    <string name="pref_loggedIn">loggedIn</string>
+    <string name="pref_Verified">verified</string>
+    <string name="preference_file_key">my_prefs</string>
+    <string name="pref_email">email</string>
+    <string name="pref_name">name</string>
+    <string name="pref_mess">mess</string>
+    <string name="pref_accountNo">accountNo</string>
+    <string name="pref_ifscCode">ifsc</string>
+    <string name="pref_bankBranch">branch</string>
+    <string name="pref_bankName">bank</string>
+    <string name="pref_holderName">holder</string>
+
+
 </resources>

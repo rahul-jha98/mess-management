@@ -1,4 +1,4 @@
-package com.rahul.messmanagement.ui.listeners
+package com.rahul.messmanagement.ui.registration.listeners
 
 interface LoginInterfaceListener {
     fun switchToFragment(fragmentNo : Int)

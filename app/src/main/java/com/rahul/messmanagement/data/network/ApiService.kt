@@ -1,8 +1,6 @@
 package com.rahul.messmanagement.data.network
 
-import com.rahul.messmanagement.data.network.networkmodels.StatusPostResponse
-import com.rahul.messmanagement.data.network.networkmodels.User
-import com.rahul.messmanagement.data.network.networkmodels.UserLoginRequest
+import com.rahul.messmanagement.data.network.networkmodels.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,4 +16,13 @@ interface ApiService {
 
     @GET("user?")
     fun loginGet(@Query("rollNo") rollNo : String) : Call<User>
+
+    @POST("user")
+    fun signUp(@Body userDetails: User) : Call<StatusPostResponse>
+
+    @POST("attendance")
+    fun markAttendance(@Body attendanceRequest: AttendanceRequest) : Call<StatusPostResponse>
+
+    @POST("feedback")
+    fun submitFeedback(@Body ratingRequest: RatingRequest) : Call<StatusPostResponse>
 }

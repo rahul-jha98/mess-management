@@ -1,4 +1,4 @@
-package com.rahul.messmanagement.ui.fragments
+package com.rahul.messmanagement.ui.registration.fragments
 
 
 import android.animation.Animator
@@ -10,14 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.rahul.messmanagement.MessApplication
 
 import com.rahul.messmanagement.R
 import com.rahul.messmanagement.data.DataRepository
 import com.rahul.messmanagement.data.network.NetworkResult
-import com.rahul.messmanagement.ui.MainActivity
-import com.rahul.messmanagement.ui.listeners.LoginInterfaceListener
+import com.rahul.messmanagement.ui.registration.MainActivity
+import com.rahul.messmanagement.ui.registration.listeners.LoginInterfaceListener
 import kotlinx.android.synthetic.main.fragment_roll_no.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +59,14 @@ class RollNoFragment : Fragment(), CoroutineScope {
                 rollNoInputLayout.error = "Not a valid roll no"
                 return@setOnClickListener
             }
+
+            try {
+                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(it.windowToken, 0)
+            } catch (e: Exception) {
+
+            }
+
             deactivateButton()
             hideButton()
             tryLogin()
@@ -110,7 +119,7 @@ class RollNoFragment : Fragment(), CoroutineScope {
                     if(!result.value.status) {
                         loginInterfaceListener.switchToFragment(1)
                     } else {
-                        showButton()
+                        loginInterfaceListener.switchToFragment(2)
                     }
                 }
                 is NetworkResult.Error -> {
