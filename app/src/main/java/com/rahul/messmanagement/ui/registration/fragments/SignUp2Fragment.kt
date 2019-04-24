@@ -5,14 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 
 import com.rahul.messmanagement.R
+import com.rahul.messmanagement.customuielements.ReselectableSpinner
 import com.rahul.messmanagement.ui.registration.MainActivity
 import kotlinx.android.synthetic.main.fragment_sign_up2.*
 
 
-class SignUp2Fragment : Fragment() {
+class SignUp2Fragment : Fragment() , ReselectableSpinner.OnSpinnerCancelledListener {
+
+    private var selectedPosition = -1
+    private var allMessList = arrayOf("BH1", "BH2", "BH3", "BH4", "GH1", "GH2", "GH3")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +31,30 @@ class SignUp2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var email = MainActivity.rollNo.toLowerCase() + "@iiita.ac.in"
-        emailEditText.setText(email)
+        emailEditText.setText(MainActivity.rollNo.toLowerCase() + "@iiita.ac.in")
+        messEditText.showSoftInputOnFocus = false
+        val messAdapter = ArrayAdapter<String>(context!!, R.layout.list_item_spinner_drop_down, allMessList)
+        messSpinnerView.adapter = messAdapter
+
+
+        messEditText.onFocusChangeListener = View.OnFocusChangeListener{_, hasFocus ->
+            if(hasFocus) {
+                messSpinnerView.performClick()
+            }
+        }
+
+        messSpinnerView.onAnyItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                messEditText.clearFocus()
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                messEditText.setText(allMessList[position])
+                selectedPosition = position
+                messEditText.clearFocus()
+            }
+
+        }
 
         button.setOnClickListener {
             val name = nameEditText.text.toString()
@@ -60,5 +88,9 @@ class SignUp2Fragment : Fragment() {
 
             SignUpHandlerFragment.viewPager.currentItem = 2
         }
+    }
+
+    override fun onSpinnerCancelled() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

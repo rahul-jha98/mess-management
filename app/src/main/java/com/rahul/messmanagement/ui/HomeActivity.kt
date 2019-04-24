@@ -5,11 +5,13 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.rahul.messmanagement.R
+import com.rahul.messmanagement.ui.fragments.ApplyRebateFragment
 import com.rahul.messmanagement.ui.fragments.HomeFragment
 import com.rahul.messmanagement.ui.fragments.UserDetailsFragment
+import com.rahul.messmanagement.ui.listeners.DialogOpenerListener
 import com.rahul.messmanagement.utils.User
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), DialogOpenerListener {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -60,5 +62,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.homeContentSpace, fragment).commit()
+    }
+
+    override fun openDialog(dialogNo: Int) {
+        val applyRebateFragment = ApplyRebateFragment()
+        applyRebateFragment.show(supportFragmentManager, applyRebateFragment.tag)
     }
 }

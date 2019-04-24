@@ -5,6 +5,7 @@ import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,8 @@ import com.rahul.messmanagement.MessApplication
 import com.rahul.messmanagement.R
 import com.rahul.messmanagement.data.DataRepository
 import com.rahul.messmanagement.data.network.NetworkResult
+import com.rahul.messmanagement.ui.HomeActivity
+import com.rahul.messmanagement.ui.listeners.DialogOpenerListener
 import com.rahul.messmanagement.utils.User
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +38,7 @@ class HomeFragment : Fragment(), CoroutineScope {
 
     private val TAG = HomeFragment::class.java.simpleName
     private lateinit var dataRepository: DataRepository
+    private lateinit var dialogOpenerListener: DialogOpenerListener
 
     private var job: Job = Job()
 
@@ -91,6 +95,7 @@ class HomeFragment : Fragment(), CoroutineScope {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         dataRepository = (activity?.application as MessApplication).appComponent.getRepository()
+        dialogOpenerListener = (activity as HomeActivity)
     }
 
     override fun onCreateView(
@@ -100,6 +105,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -144,6 +150,11 @@ class HomeFragment : Fragment(), CoroutineScope {
             complaintEditText.visibility = View.GONE
             submitButton.visibility = View.GONE
             giveRating()
+        }
+
+        rebateCardView.setOnClickListener {
+            Log.d(TAG, "Touched card")
+            dialogOpenerListener.openDialog(1)
         }
 
     }
@@ -254,4 +265,5 @@ class HomeFragment : Fragment(), CoroutineScope {
         mSetRightOut = AnimatorInflater.loadAnimator(context, R.animator.out_anim) as AnimatorSet
         mSetLeftIn = AnimatorInflater.loadAnimator(context, R.animator.in_anim) as AnimatorSet
     }
+
 }

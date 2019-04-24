@@ -8,7 +8,7 @@
                                        tools:context=".ui.fragments.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
+                                                       android:layout_height="wrap_content"
                                                        android:animateLayoutChanges="true"
     >
 
@@ -17,7 +17,7 @@
                 android:id="@+id/eventImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background"
                 android:translationZ="4dp"
@@ -75,7 +75,7 @@
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileCardView"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
         >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,7 +88,7 @@
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                         android:id="@+id/hadFoodTextView" android:layout_marginTop="8dp"
                         app:layout_constraintTop_toTopOf="parent" tools:text="Dis you have breakfast today"
-                        android:textSize="18sp" android:textColor="@color/jetBlack" android:layout_marginStart="8dp"/>
+                        android:textSize="16sp" android:textColor="@color/jetBlack" android:layout_marginStart="8dp"/>
                 <Button
                         android:text="Yes"
                         android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileCardView"
-                android:layout_marginTop="32dp" android:id="@+id/ratingCardView"
+                android:layout_marginTop="8dp" android:id="@+id/ratingCardView"
         >
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                         android:id="@+id/howWasFoodTextView" android:layout_marginTop="8dp"
                         app:layout_constraintTop_toTopOf="parent" tools:text="Dis you have breakfast today"
-                        android:textSize="18sp" android:textColor="@color/jetBlack" android:layout_marginStart="8dp"/>
+                        android:textSize="16sp" android:textColor="@color/jetBlack" android:layout_marginStart="8dp"/>
 
                 <Button
                         android:minWidth="0dp"
@@ -235,7 +235,7 @@
                         app:layout_constraintEnd_toEndOf="parent" android:id="@+id/complaintEditText"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp" android:hint="Complaint (Optional)" android:minLines="4"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/submitButton"
+                        app:layout_constraintBottom_toTopOf="@+id/submitButton"
                         android:visibility="gone"/>
                 <Button
                         android:text="Submit"
@@ -244,18 +244,22 @@
                         android:id="@+id/submitButton" app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginEnd="16dp"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="4dp" app:layout_constraintBottom_toBottomOf="parent"
                         android:visibility="gone"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/ratingCardView"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp">
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/ratingCardView"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"
+                android:id="@+id/rebateCardView" app:cardElevation="4dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -267,21 +271,31 @@
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="1:1"
                         android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="16dp" app:layout_constraintEnd_toStartOf="@+id/guideline"
-                        android:layout_marginStart="16dp"/>
+                        android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline"
+                        android:layout_marginStart="8dp"/>
                 <androidx.constraintlayout.widget.Guideline
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/guideline" app:layout_constraintGuide_percent=".4"/>
+                        android:id="@+id/guideline" app:layout_constraintGuide_percent=".35"/>
                 <TextView
-                        android:text="Travelling for more than 4 day.  Apply for rebate"
+                        android:text="Travelling for more than 4 days? Apply for mess rebate."
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView8" app:layout_constraintStart_toStartOf="@+id/guideline"
-                        android:layout_marginStart="16dp" android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="16dp" android:textSize="18sp"/>
+                        android:layout_marginEnd="16dp" android:textColor="@color/jetBlack"/>
+                <Button
+                        android:text="Apply Now"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+                        android:id="@+id/applyButton" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"
+                        android:layoutDirection="rtl"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+                        app:icon="@drawable/ic_next" app:rippleColor="@android:color/transparent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

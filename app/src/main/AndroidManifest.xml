@@ -15,7 +15,8 @@
 
         <activity
                 android:name=".ui.HomeActivity"
-                android:label="@string/title_activity_home">
+                android:label="@string/title_activity_home"
+                android:windowSoftInputMode="stateHidden">
         </activity>
 
         <activity android:name=".ui.SplashActivity">
@@ -30,7 +31,7 @@
 
         <activity
                 android:name=".ui.registration.MainActivity"
-                android:windowSoftInputMode="adjustResize">
+                android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
     </application>
 

@@ -66,9 +66,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/messEditText"
-                    android:inputType="textEmailAddress"
+                    android:inputType="none"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_next"
             />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.rahul.messmanagement.customuielements.ReselectableSpinner android:layout_width="0dp"
+                                                                       android:layout_height="0dp"
+                                                                       android:spinnerMode="dropdown"
+                                                                       android:overlapAnchor="false"
+                                                                       android:dropDownWidth="match_parent"
+                                                                       android:popupElevation="10dp"
+                                                                       android:popupBackground="@color/white"
+                                                                       android:id="@+id/messSpinnerView" app:layout_constraintStart_toStartOf="@+id/messInputLayout"
+                                                                       app:layout_constraintEnd_toEndOf="@+id/messInputLayout"
+                                                                       app:layout_constraintTop_toTopOf="@+id/messInputLayout"
+                                                                       app:layout_constraintBottom_toBottomOf="@+id/messInputLayout" android:visibility="invisible"/>
 
         <ImageView
                 android:src="@drawable/ic_undraw_personal"
