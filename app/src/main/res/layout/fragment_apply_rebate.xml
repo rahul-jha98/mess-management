@@ -58,7 +58,7 @@ android:focusableInTouchMode="true">
             app:layout_constraintTop_toTopOf="@+id/fromInputLayout"
             app:layout_constraintStart_toEndOf="@+id/fromInputLayout" app:layout_constraintHorizontal_bias="0.5"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/fromInputLayout">
+    >
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

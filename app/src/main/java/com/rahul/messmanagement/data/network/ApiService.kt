@@ -1,5 +1,6 @@
 package com.rahul.messmanagement.data.network
 
+import com.rahul.messmanagement.data.database.AttendanceEntry
 import com.rahul.messmanagement.data.network.networkmodels.*
 import retrofit2.Call
 import retrofit2.http.Body
@@ -21,8 +22,14 @@ interface ApiService {
     fun signUp(@Body userDetails: User) : Call<StatusPostResponse>
 
     @POST("attendance")
-    fun markAttendance(@Body attendanceRequest: AttendanceRequest) : Call<StatusPostResponse>
+    fun markAttendance(@Body attendanceRequest: AttendanceEntry) : Call<StatusPostResponse>
 
     @POST("feedback")
     fun submitFeedback(@Body ratingRequest: RatingRequest) : Call<StatusPostResponse>
+
+    @POST("apply_rebate")
+    fun applyForRebate(@Body rebateRequest: RebateRequest) : Call<StatusPostResponse>
+
+    @GET("getFeedbacks")
+    fun getAllFeedbacks(@Query("rollNo") rollNo: String) : Call<List<RatingRequest>>
 }

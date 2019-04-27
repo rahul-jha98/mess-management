@@ -35,16 +35,7 @@
             android:textColor="@color/jetBlack"
             app:layout_constraintStart_toStartOf="@+id/nameTextView" tools:text="IIT2017100"
             app:layout_constraintBottom_toTopOf="@+id/emailTextView"/>
-    <Button
-            android:text="Bank Account Details"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_twotone_account"
-            style="@style/listButton"
-            android:id="@+id/bankDetailsButton" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textAlignment="viewStart"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" android:layout_marginTop="16dp"/>
+
 
     <Button
             android:text="Your Attendence Record"
@@ -55,10 +46,10 @@
             android:id="@+id/attendenceButton" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textAlignment="viewStart"
-            app:layout_constraintTop_toBottomOf="@+id/bankDetailsButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView11" android:layout_marginTop="16dp"/>
 
     <Button
-            android:text="Your Reviews"
+            android:text="Your Feedbacks"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:icon="@drawable/ic_twotone_review"
@@ -80,6 +71,17 @@
             app:layout_constraintTop_toBottomOf="@+id/yourReviewsButton"/>
 
     <Button
+            android:text="Edit Details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_twotone_poll"
+            style="@style/listButton"
+            android:id="@+id/editDetailsButton" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textAlignment="viewStart"
+            app:layout_constraintTop_toBottomOf="@+id/allPollsButton"/>
+
+    <Button
             android:text="Log Out"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -88,7 +90,7 @@
             android:id="@+id/signOutButton" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textAlignment="viewStart"
-            app:layout_constraintTop_toBottomOf="@+id/allPollsButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/editDetailsButton"/>
     <TextView
             android:text="You are being served by mess of "
             android:layout_width="wrap_content"

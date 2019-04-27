@@ -2,6 +2,7 @@ package com.rahul.messmanagement.ui.fragments
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.rahul.messmanagement.R
+import com.rahul.messmanagement.ui.AttendanceActivity
+import com.rahul.messmanagement.ui.RatingActivity
 import com.rahul.messmanagement.utils.User
 import kotlinx.android.synthetic.main.fragment_user_details.*
 
@@ -40,6 +43,14 @@ class UserDetailsFragment : Fragment() {
             }
 
             activity!!.finish()
+        }
+
+        attendenceButton.setOnClickListener {
+            startActivity(Intent(activity!!, AttendanceActivity::class.java))
+        }
+
+        yourReviewsButton.setOnClickListener {
+            startActivity(Intent(activity!!, RatingActivity::class.java))
         }
     }
 }

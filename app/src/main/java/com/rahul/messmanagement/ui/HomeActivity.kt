@@ -10,6 +10,7 @@ import com.rahul.messmanagement.ui.fragments.HomeFragment
 import com.rahul.messmanagement.ui.fragments.UserDetailsFragment
 import com.rahul.messmanagement.ui.listeners.DialogOpenerListener
 import com.rahul.messmanagement.utils.User
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), DialogOpenerListener {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -35,6 +36,7 @@ class HomeActivity : AppCompatActivity(), DialogOpenerListener {
         setContentView(R.layout.activity_home)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
+        floatingActionButton.hide()
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         val sharedPref = this.getSharedPreferences(
@@ -61,6 +63,11 @@ class HomeActivity : AppCompatActivity(), DialogOpenerListener {
             else -> UserDetailsFragment()
         }
 
+        if(fragmentNo == 2) {
+            floatingActionButton.show()
+        } else {
+            floatingActionButton.hide()
+        }
         supportFragmentManager.beginTransaction().replace(R.id.homeContentSpace, fragment).commit()
     }
 

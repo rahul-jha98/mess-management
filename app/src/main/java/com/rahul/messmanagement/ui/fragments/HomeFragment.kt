@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionManager
 import com.google.android.material.snackbar.Snackbar
 import com.rahul.messmanagement.MessApplication
@@ -24,6 +25,9 @@ import com.rahul.messmanagement.data.network.NetworkResult
 import com.rahul.messmanagement.ui.HomeActivity
 import com.rahul.messmanagement.ui.listeners.DialogOpenerListener
 import com.rahul.messmanagement.utils.User
+import com.rahul.messmanagement.viewmodels.MainViewModel
+import com.rahul.messmanagement.viewmodels.RoomViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,12 +43,14 @@ class HomeFragment : Fragment(), CoroutineScope {
     private val TAG = HomeFragment::class.java.simpleName
     private lateinit var dataRepository: DataRepository
     private lateinit var dialogOpenerListener: DialogOpenerListener
+    private lateinit var viewModelFactory: RoomViewModelFactory
 
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
+    private var isPresent = 0
     private var timeSlot = 0
     private var slotText = ""
     private var elevation = 0f
@@ -54,6 +60,7 @@ class HomeFragment : Fragment(), CoroutineScope {
 
     private lateinit var mSetRightOut : AnimatorSet
     private lateinit var mSetLeftIn : AnimatorSet
+
 
     private var lastButton : Button? = null
 
@@ -96,6 +103,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         super.onAttach(context)
         dataRepository = (activity?.application as MessApplication).appComponent.getRepository()
         dialogOpenerListener = (activity as HomeActivity)
+        viewModelFactory = (activity?.application as MessApplication).appComponent.getViewModelFactory()
     }
 
     override fun onCreateView(
@@ -112,7 +120,7 @@ class HomeFragment : Fragment(), CoroutineScope {
 
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-        Log.d("Hello", badButton.isActivated.toString())
+
 
         timeSlot = when(hour) {
             in 0..12 -> 1
@@ -120,6 +128,20 @@ class HomeFragment : Fragment(), CoroutineScope {
             in 20..24 -> 3
             else -> 0
         }
+
+        val viewModel = ViewModelProviders.of(this , viewModelFactory).get(MainViewModel::class.java)
+
+        viewModel.lastEntry.observe(this, androidx.lifecycle.Observer {
+            it?.let {
+                if(it.timeSlot == timeSlot && it.currDate == TimeUnit.DAYS.toMillis(
+                        TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis()))) {
+
+                } else {
+                    attendenceCardView.visibility = View.VISIBLE
+                    ratingCardView.visibility = View.VISIBLE
+                }
+            }
+        })
 
         changeCameraDistance()
         loadAnimations()
@@ -138,8 +160,16 @@ class HomeFragment : Fragment(), CoroutineScope {
             hadFoodTextView.text = "Did you have $slotText today?"
             howWasFoodTextView.text = "How would you rate the $slotText?"
             hadFoodButton.setOnClickListener {
+                isPresent = 1
                 flipCard()
                 markAttendance()
+            }
+
+            didNotHaveFoodButton.setOnClickListener {
+                markAttendance()
+                TransitionManager.beginDelayedTransition(attendenceCardView)
+                ratingCardView.visibility = View.GONE
+                attendenceCardView.visibility = View.GONE
             }
         }
 
@@ -153,7 +183,9 @@ class HomeFragment : Fragment(), CoroutineScope {
         }
 
         rebateCardView.setOnClickListener {
-            Log.d(TAG, "Touched card")
+            dialogOpenerListener.openDialog(1)
+        }
+        applyButton.setOnClickListener {
             dialogOpenerListener.openDialog(1)
         }
 
@@ -166,14 +198,14 @@ class HomeFragment : Fragment(), CoroutineScope {
         if(timeSlot == 0) return
 
         launch {
-            val result = dataRepository.markAttendance(User.rollNo, msecs, timeSlot)
+            val result = dataRepository.markAttendance(User.rollNo, msecs, timeSlot, isPresent)
 
             when(result) {
                 is NetworkResult.Ok -> {
                     Log.d(TAG, result.value.status.toString())
 
                     if(result.value.status) {
-
+                        dataRepository.saveAttendance(User.rollNo, msecs, timeSlot, isPresent)
                     }
                 }
                 is NetworkResult.Error -> {
