@@ -1,12 +1,13 @@
 package com.rahul.messmanagement.viewmodels
 
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.ViewModel
 import com.rahul.messmanagement.data.DataRepository
-import com.rahul.messmanagement.data.database.AttendanceEntry
-import java.util.*
-import java.util.concurrent.TimeUnit
+import com.rahul.messmanagement.utils.User
 
-class MainViewModel(repository: DataRepository) : ViewModel() {
+
+class MainViewModel(val repository: DataRepository) : ViewModel() {
     val lastEntry = repository.getLastEntry()
+
+    var nextTimeTable = repository.getAllMenu(User.timeSlot, User.dayOfWeek)
 }

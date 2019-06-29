@@ -11,6 +11,7 @@ class RoomViewModelFactory constructor(private val repository: DataRepository): 
         return when {
             modelClass.isAssignableFrom(AttendanceViewModel::class.java) -> AttendanceViewModel(this.repository) as T
             modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel(this.repository) as T
+            modelClass.isAssignableFrom(MenuViewModel::class.java) -> MenuViewModel(this.repository) as T
             else -> throw IllegalArgumentException("ViewModel Not Found")
         }
     }

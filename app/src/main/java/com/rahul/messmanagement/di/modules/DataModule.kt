@@ -25,6 +25,7 @@ object DataModule {
     fun provideDataRepository(retrofitClient : ApiService, messDatabase: MessDatabase, appExecutors: AppExecutors) =
         DataRepository.getInstance(retrofitClient,
             messDatabase.attendanceDao(),
+            messDatabase.menuDao(),
             appExecutors)
 
     @Provides

@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.rahul.messmanagement.MessApplication
 
 import com.rahul.messmanagement.R
-import com.rahul.messmanagement.ui.AttendanceActivity
-import com.rahul.messmanagement.ui.RatingActivity
+import com.rahul.messmanagement.ui.*
 import com.rahul.messmanagement.utils.User
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_user_details.*
 
 class UserDetailsFragment : Fragment() {
@@ -27,6 +29,10 @@ class UserDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(User.mess[0] == 'G') {
+            Glide.with(this).load(R.drawable.female).into(imageView6)
+        }
 
         rollNoTextView.text = User.rollNo
         nameTextView.text = User.name
@@ -51,6 +57,14 @@ class UserDetailsFragment : Fragment() {
 
         yourReviewsButton.setOnClickListener {
             startActivity(Intent(activity!!, RatingActivity::class.java))
+        }
+
+        viewRebateButton.setOnClickListener {
+            startActivity(Intent(activity!!, RebateActivity::class.java))
+        }
+
+        allPollsButton.setOnClickListener {
+            startActivity(Intent(activity!!, PollQuestionActivity::class.java))
         }
     }
 }

@@ -67,12 +67,27 @@ class WelcomeFragment : Fragment(), CoroutineScope {
             when(result) {
                 is NetworkResult.Ok -> {
                     Log.d(TAG, result.value.name)
-                    activity?.runOnUiThread {
-                        progressBar2.visibility = View.INVISIBLE
-                        showButton()
-                        saveDetails(result.value)
-                    }
 
+                    val result2 = dataRepository.getAttendanceFromServer(MainActivity.rollNo)
+                    when(result2) {
+                        is NetworkResult.Ok -> {
+                            dataRepository.saveAllAttendance(result2.value)
+
+                            val result3 = dataRepository.getMenuFromServer(result.value.mess)
+
+                            when(result3) {
+                                is NetworkResult.Ok -> {
+                                    dataRepository.saveAllMenu(result3.value)
+                                    activity?.runOnUiThread {
+                                        saveDetails(result.value)
+
+                                        showButton()
+                                    }
+                                }
+                            }
+
+                        }
+                    }
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, result.exception.toString())

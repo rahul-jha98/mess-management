@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_sign_up2.*
 class SignUp2Fragment : Fragment() , ReselectableSpinner.OnSpinnerCancelledListener {
 
     private var selectedPosition = -1
-    private var allMessList = arrayOf("BH1", "BH2", "BH3", "BH4", "GH1", "GH2", "GH3")
+    private var allMessList = arrayOf("BH1", "BH2", "BH3", "BH4", "BH5", "GH1", "GH2", "GH3")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

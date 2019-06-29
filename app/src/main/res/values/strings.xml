@@ -23,6 +23,13 @@
     <string name="pref_bankBranch">branch</string>
     <string name="pref_bankName">bank</string>
     <string name="pref_holderName">holder</string>
+    <string name="day_of_week_1">SUN</string>
+    <string name="day_of_week_2">MON</string>
+    <string name="day_of_week_3">TUE</string>
+    <string name="day_of_week_4">WED</string>
+    <string name="day_of_week_5">THU</string>
+    <string name="day_of_week_6">FRI</string>
+    <string name="day_of_week_7">SAT</string>
 
 
 </resources>

@@ -10,15 +10,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/nameTextView" tools:text="Rahul Jha"
-            android:textSize="24sp" app:layout_constraintStart_toEndOf="@+id/imageView6"
+            android:textSize="24sp"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="parent" android:textColor="@color/jetBlack"
-            android:fontFamily="sans-serif" android:layout_marginTop="16dp"/>
+            android:fontFamily="sans-serif" android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"/>
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:src="@drawable/ic_launcher_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp" android:src="@drawable/male"
             android:id="@+id/imageView6" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginStart="8dp" android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintDimensionRatio="w,1:1"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,12 +74,12 @@
             app:layout_constraintTop_toBottomOf="@+id/yourReviewsButton"/>
 
     <Button
-            android:text="Edit Details"
+            android:text="View Rebate Status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_twotone_poll"
+            app:icon="@drawable/ic_twotone_account"
             style="@style/listButton"
-            android:id="@+id/editDetailsButton" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/viewRebateButton" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textAlignment="viewStart"
             app:layout_constraintTop_toBottomOf="@+id/allPollsButton"/>
@@ -90,7 +93,7 @@
             android:id="@+id/signOutButton" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:textAlignment="viewStart"
-            app:layout_constraintTop_toBottomOf="@+id/editDetailsButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/viewRebateButton"/>
     <TextView
             android:text="You are being served by mess of "
             android:layout_width="wrap_content"
@@ -110,5 +113,9 @@
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintBottom_toBottomOf="@+id/textView11" android:textSize="12sp"
     />
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/guideline4" app:layout_constraintGuide_percent=".3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

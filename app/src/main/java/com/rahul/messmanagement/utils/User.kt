@@ -12,4 +12,7 @@ object User {
     var bankName = ""
     var bankBranch = ""
     var accountHolderName = ""
+
+    var dayOfWeek = 0
+    var timeSlot = 0
 }

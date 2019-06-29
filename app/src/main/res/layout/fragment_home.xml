@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                        android:layout_height="wrap_content"
-                                                       android:animateLayoutChanges="true"
-    >
+                                                       android:animateLayoutChanges="true">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -19,7 +18,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/male"
                 android:translationZ="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -249,6 +248,55 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/ratingCardView" android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp" android:id="@+id/nextMenuCardView">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp" app:srcCompat="@drawable/ic_undraw_chef"
+                        android:id="@+id/imageView8" app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginEnd="4dp" android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"/>
+                <androidx.constraintlayout.widget.Guideline
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/guideline3" app:layout_constraintGuide_percent=".65"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                        android:id="@+id/menuTimeSlotTextView" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3" android:layout_marginEnd="8dp"
+                        tools:text="Next Breakfast's Menu" android:textSize="16sp"
+                        android:fontFamily="sans-serif-condensed" android:textColor="@color/jetBlack"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintBottom_toTopOf="@+id/menuTextView"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:layout_constraintVertical_bias="0.25"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/menuTextView" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/menuTimeSlotTextView"
+                        app:layout_constraintStart_toStartOf="@+id/menuTimeSlotTextView"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline3" android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                        tools:text="Apple, mango"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -257,7 +305,7 @@
                 android:focusable="true"
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/ratingCardView"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/nextMenuCardView"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"
                 android:id="@+id/rebateCardView" app:cardElevation="4dp">
             <androidx.constraintlayout.widget.ConstraintLayout

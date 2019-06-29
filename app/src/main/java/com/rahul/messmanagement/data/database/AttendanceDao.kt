@@ -8,13 +8,13 @@ interface AttendanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun markAttendance(attendanceEntry: AttendanceEntry)
 
-    @Query("SELECT * FROM attendance ORDER BY currDate, timeSlot DESC")
+    @Query("SELECT * FROM attendance ORDER BY currDate DESC, timeSlot DESC")
     fun getAllAttendance() : LiveData<List<AttendanceEntry>>
 
-    @Query("SELECT * FROM attendance ORDER BY currDate, timeSlot DESC LIMIT 1")
-    fun getLastAttendance() : LiveData<AttendanceEntry>
+    @Query("SELECT * FROM attendance ORDER BY currDate DESC, timeSlot DESC LIMIT 1")
+    fun getLastAttendance() : LiveData<List<AttendanceEntry>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAttendance(allAttendance : List<AttendanceEntry>)
 
     @Query("DELETE FROM attendance")

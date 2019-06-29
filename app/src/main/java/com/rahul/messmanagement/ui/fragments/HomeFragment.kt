@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionManager
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.rahul.messmanagement.MessApplication
 
@@ -118,31 +119,51 @@ class HomeFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(User.mess[0] == 'G') {
+            Glide.with(this).load(R.drawable.female).into(eventImage)
+        }
+
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
 
-
+        Log.d(TAG, hour.toString())
         timeSlot = when(hour) {
             in 0..12 -> 1
-            in 12..20 -> 2
-            in 20..24 -> 3
+            in 12..19 -> 2
+            in 19..24 -> 3
             else -> 0
         }
 
         val viewModel = ViewModelProviders.of(this , viewModelFactory).get(MainViewModel::class.java)
 
         viewModel.lastEntry.observe(this, androidx.lifecycle.Observer {
-            it?.let {
-                if(it.timeSlot == timeSlot && it.currDate == TimeUnit.DAYS.toMillis(
+            if(it.isNotEmpty()){
+                if(it[0].timeSlot == timeSlot && it[0].currDate == TimeUnit.DAYS.toMillis(
                         TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis()))) {
-
+                    Log.d(TAG, "Already present")
                 } else {
                     attendenceCardView.visibility = View.VISIBLE
                     ratingCardView.visibility = View.VISIBLE
                 }
+            } else {
+                attendenceCardView.visibility = View.VISIBLE
+                ratingCardView.visibility = View.VISIBLE
             }
         })
 
+        viewModel.nextTimeTable.observe(this, androidx.lifecycle.Observer {
+            if(it.isNotEmpty()) {
+                slotText = when(timeSlot) {
+                    1 -> "breakfast"
+                    2 -> "lunch"
+                    else -> "dinner"
+                }
+                menuTimeSlotTextView.text = "Today's ${slotText} Menu"
+                menuTextView.text = it[0].menu
+            } else {
+                nextMenuCardView.visibility = View.GONE
+            }
+        })
         changeCameraDistance()
         loadAnimations()
 

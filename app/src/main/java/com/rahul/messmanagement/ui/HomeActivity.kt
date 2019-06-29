@@ -1,16 +1,19 @@
 package com.rahul.messmanagement.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.rahul.messmanagement.R
 import com.rahul.messmanagement.ui.fragments.ApplyRebateFragment
 import com.rahul.messmanagement.ui.fragments.HomeFragment
+import com.rahul.messmanagement.ui.fragments.MenuFragment
 import com.rahul.messmanagement.ui.fragments.UserDetailsFragment
 import com.rahul.messmanagement.ui.listeners.DialogOpenerListener
 import com.rahul.messmanagement.utils.User
 import kotlinx.android.synthetic.main.activity_home.*
+import java.util.*
 
 class HomeActivity : AppCompatActivity(), DialogOpenerListener {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -36,6 +39,26 @@ class HomeActivity : AppCompatActivity(), DialogOpenerListener {
         setContentView(R.layout.activity_home)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
+        val cal = Calendar.getInstance()
+        val hourOfDay = cal.get(java.util.Calendar.HOUR_OF_DAY)
+        val dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+
+        User.dayOfWeek = when(dayOfWeek) {
+            Calendar.SUNDAY -> 0
+            Calendar.MONDAY -> 1
+            Calendar.TUESDAY -> 2
+            Calendar.WEDNESDAY -> 3
+            Calendar.THURSDAY -> 4
+            Calendar.FRIDAY -> 5
+            else -> 6
+        }
+
+        User.timeSlot = when(hourOfDay) {
+            in 0..9 -> 1
+            in 10..15 -> 2
+            else -> 3
+        }
+
         floatingActionButton.hide()
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
@@ -59,12 +82,16 @@ class HomeActivity : AppCompatActivity(), DialogOpenerListener {
 
     private fun switchToFragment(fragmentNo: Int) {
         val fragment = when(fragmentNo) {
-            in 0..1 -> HomeFragment()
+            0 -> HomeFragment()
+            1 -> MenuFragment()
             else -> UserDetailsFragment()
         }
 
         if(fragmentNo == 2) {
             floatingActionButton.show()
+            floatingActionButton.setOnClickListener {
+                startActivity(Intent(this, EditDetailsActivity::class.java))
+            }
         } else {
             floatingActionButton.hide()
         }

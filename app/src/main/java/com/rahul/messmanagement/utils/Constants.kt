@@ -1,3 +1,3 @@
 package com.rahul.messmanagement.utils
 
-const val BASE_URL = "http://6ee06ae0.ngrok.io/"
+const val BASE_URL = "https://6e48f161.ngrok.io/"

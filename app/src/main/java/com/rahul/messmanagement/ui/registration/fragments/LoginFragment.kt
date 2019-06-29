@@ -56,6 +56,7 @@ class LoginFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dataRepository.deleteAll()
         rollNoTextView.text = MainActivity.rollNo
         passwordEditText.requestFocus()
 

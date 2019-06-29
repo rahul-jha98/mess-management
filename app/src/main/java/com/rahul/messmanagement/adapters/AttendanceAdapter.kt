@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rahul.messmanagement.R
 import com.rahul.messmanagement.data.database.AttendanceEntry
@@ -43,8 +44,8 @@ class AttendanceAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> () {
 
 
     inner class PresentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val stringButton = itemView.findViewById<Button>(R.id.stringButton)
-
+        private val dateTextView = itemView.findViewById<TextView>(R.id.dateTextView)
+        private val timeSlotTextView = itemView.findViewById<TextView>(R.id.timeSlotTextView)
         fun bind(attendanceEntry: AttendanceEntry) {
             val slot = when(attendanceEntry.timeSlot) {
                 1 -> "Breakfast"
@@ -56,7 +57,8 @@ class AttendanceAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> () {
             cal.timeInMillis = attendanceEntry.currDate
             val date = DateFormat.format("dd, MMM", cal).toString()
 
-            stringButton.text = "$slot on $date"
+            dateTextView.text = date
+            timeSlotTextView.text = slot
         }
     }
 

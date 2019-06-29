@@ -12,7 +12,24 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.RatingActivity" android:theme="@style/DetailTheme">
+        <activity android:name=".ui.PollActivity"
+                  android:theme="@style/DetailTheme">
+        </activity>
+        <activity
+                android:name=".ui.PollQuestionActivity"
+                android:theme="@style/DetailTheme">
+        </activity>
+        <activity
+                android:name=".ui.RebateActivity"
+                android:theme="@style/DetailTheme">
+        </activity>
+        <activity
+                android:name=".ui.EditDetailsActivity"
+                android:theme="@style/DetailTheme">
+        </activity>
+        <activity
+                android:name=".ui.RatingActivity"
+                android:theme="@style/DetailTheme">
         </activity>
         <activity
                 android:name=".ui.AttendanceActivity"

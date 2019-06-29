@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import com.rahul.messmanagement.R
 import com.rahul.messmanagement.ui.registration.MainActivity
+import com.rahul.messmanagement.utils.User
+import java.util.*
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -26,5 +29,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+
+
     }
 }

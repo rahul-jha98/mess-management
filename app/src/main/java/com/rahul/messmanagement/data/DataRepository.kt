@@ -5,14 +5,18 @@ import androidx.lifecycle.LiveData
 import com.rahul.messmanagement.AppExecutors
 import com.rahul.messmanagement.data.database.AttendanceDao
 import com.rahul.messmanagement.data.database.AttendanceEntry
+import com.rahul.messmanagement.data.database.MenuDao
+import com.rahul.messmanagement.data.database.MenuEntry
 import com.rahul.messmanagement.data.network.ApiService
 import com.rahul.messmanagement.data.network.NetworkResult
 import com.rahul.messmanagement.data.network.await
 import com.rahul.messmanagement.data.network.networkmodels.*
 import com.rahul.messmanagement.ui.registration.MainActivity
+import java.time.DayOfWeek
 
 class DataRepository(private var retorfitClient : ApiService,
                      private var mAttendanceDao: AttendanceDao,
+                     private var mMenuDao: MenuDao,
                      private var mExecutors : AppExecutors
 ) {
     companion object {
@@ -25,11 +29,12 @@ class DataRepository(private var retorfitClient : ApiService,
         @Synchronized
         fun getInstance( retrofitClient : ApiService,
                          attendanceDao: AttendanceDao,
+                         menuDao: MenuDao,
                          executors: AppExecutors) : DataRepository{
             Log.d(LOG_TAG, "Getting the repository")
             if(sInstance == null) {
                 synchronized(LOCK) {
-                    sInstance = DataRepository(retrofitClient, attendanceDao, executors)
+                    sInstance = DataRepository(retrofitClient, attendanceDao, menuDao, executors)
                     Log.d(LOG_TAG, "Made a new repository")
                 }
             }
@@ -86,6 +91,14 @@ class DataRepository(private var retorfitClient : ApiService,
         return retorfitClient.applyForRebate(RebateRequest(rollNo, fromDate, toDate)).await()
     }
 
+    suspend fun getAttendanceFromServer(rollNo: String) : NetworkResult<List<AttendanceEntry>> {
+        return retorfitClient.getAttendance(rollNo).await()
+    }
+
+    suspend fun getMenuFromServer(mess: String) : NetworkResult<List<MenuEntry>> {
+        return retorfitClient.getTimeTable(mess).await()
+    }
+
     @Synchronized
     fun saveAttendance(rollNo: String, midnightTimeInMillis: Long, timeSlot: Int, isPresent: Int) {
         Log.d(LOG_TAG, "Saving attendance to database")
@@ -102,7 +115,57 @@ class DataRepository(private var retorfitClient : ApiService,
         return retorfitClient.getAllFeedbacks(rollNo).await()
     }
 
-    fun getLastEntry() : LiveData<AttendanceEntry> {
+    suspend fun getAllRebates(rollNo: String) : NetworkResult<List<RebateRequest>> {
+        return retorfitClient.getAllRebates(rollNo).await()
+    }
+
+    suspend fun updateUser(rollNo: String, holderName: String, accountNumber: String, ifscCode: String, bankName: String, bankBranch: String) : NetworkResult<StatusPostResponse> {
+        Log.d(LOG_TAG, "Updating User")
+        return retorfitClient.updateUser(BankDetails(rollNo, accountNumber, ifscCode, bankName, bankBranch, holderName)).await()
+    }
+
+    fun getLastEntry() : LiveData<List<AttendanceEntry>> {
         return mAttendanceDao.getLastAttendance()
+    }
+
+    fun deleteAll() {
+        mExecutors.diskIO().execute {
+            mAttendanceDao.deleteAll()
+            mMenuDao.deleteAll()
+        }
+    }
+
+    @Synchronized
+    fun saveAllAttendance(list: List<AttendanceEntry>) {
+        mExecutors.diskIO().execute {
+            mAttendanceDao.saveAttendance(list)
+        }
+    }
+
+    @Synchronized
+    fun saveAllMenu(list: List<MenuEntry>) {
+        mExecutors.diskIO().execute {
+            mMenuDao.saveMenu(list)
+        }
+    }
+
+    fun getMenuForDay(day : Int) : LiveData<List<MenuEntry>>{
+        return mMenuDao.getMenuForDay(day)
+    }
+
+    fun getAllMenu(timeSlot: Int, dayOfWeek: Int): LiveData<List<MenuEntry>> {
+        return mMenuDao.getNextMenu(dayOfWeek, timeSlot)
+    }
+
+    suspend fun getAllPolls(mess: String) : NetworkResult<List<PollQuestion>> {
+        return retorfitClient.getPolls(mess).await()
+    }
+
+    suspend fun getOptions(id : Int) : NetworkResult<List<PollOptions>> {
+        return retorfitClient.getPollOptions(id).await()
+    }
+
+    suspend fun submitPostResponse(rollNo: String, pollInt: Int, optNo : Int) : NetworkResult<StatusPostResponse>{
+        return retorfitClient.submitPollResponse(PollResponse(rollNo, pollInt, optNo)).await()
     }
 }

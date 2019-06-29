@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rahul.messmanagement.MessApplication
@@ -30,7 +31,7 @@ class AttendanceActivity : AppCompatActivity() {
         attendanceAdapter = AttendanceAdapter()
 
         attendanceRv.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = attendanceAdapter
         }
 
